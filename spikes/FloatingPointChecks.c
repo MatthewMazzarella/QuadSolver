@@ -10,8 +10,8 @@
 #include <stdio.h>
 
 
-bool abosluteCheck(float expectednum, float result);
-bool relativeCheck(float expectednum, float result);
+bool abosluteCheck(float expectednum, float result, float threshold);
+bool relativeCheck(float expectednum, float result, float threshold);
 
 int main(int argc, char*argv[])
 {
@@ -20,7 +20,7 @@ int main(int argc, char*argv[])
     float result = 12900.00173;
     
     //absoluteCheck will return true or false
-    bool answer = abosluteCheck(expectednum, result);
+    bool answer = abosluteCheck(expectednum, result, 001);
     
     //Prints 1 for true (within the threshold) or
     //0 for false (not within threshold)
@@ -31,20 +31,19 @@ int main(int argc, char*argv[])
     float num2 = 1400.0000399;
     
     //relativeCheck will return true of false
-    answer = relativeCheck(num1, num2);
+    answer = relativeCheck(num1, num2, .00001);
     
     //Prints 1 for true (within the threshold) or
     //0 for false (not within threshold)
     printf("Relative: %d\n", answer);//DEBUG
 }
 
-bool abosluteCheck(float expectednum, float result)
+bool abosluteCheck(float expectednum, float result, float threshold)
 {
     //Calculates the absolute value of the result minus
-    //the expected result. Compares this to a threshold.
-    float maxthreshold = .001;
+    //the expected result. Compares this to the given threshold.
     printf("%f\n", fabs(result - expectednum));//DEBUG
-    if(fabs(result - expectednum) < maxthreshold)
+    if(fabs(result - expectednum) < threshold)
     {
         return true;
     }
@@ -55,15 +54,13 @@ bool abosluteCheck(float expectednum, float result)
     return false;
 }
 
-bool relativeCheck(float num1, float num2)
+bool relativeCheck(float num1, float num2, float threshold)
 {
     //Relative error is measured by comparing the error to the expected result/threshold. (More accurate)
-    //First we need a maximum error threshold
-    float maxthreshold = .00001;
     
     //Let's see if the error is within the threshold
     printf("%f\n",fabs((num1-num2)/num2));//DEBUG
-    if((fabs((num1-num2)/num2)) <= maxthreshold)
+    if((fabs((num1-num2)/num2)) <= threshold)
     {
         return true;
     }
