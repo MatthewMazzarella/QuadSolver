@@ -3,8 +3,6 @@ in order to solve the quadratic equation. Inputs are taken in float form and
 calculated using double precesion to IEEE standard.*/
 #include "../quadsolver.h"
 
-
-
 int 
 main(int argc, char * argv[])
 {
@@ -84,7 +82,7 @@ loop(){
 	q.c = input.c;
 
 	//run Qsolv
-	ret = qssolv(&q);
+	ret = qsolv(&q);
 	if(ret != 0){
 		// Raise error
 		// Output should handle error code
@@ -93,6 +91,10 @@ loop(){
 	}
 
 	//format and output results
+	if(q.rootCount <= 0){
+		outputErrorVal(q.rootCount);
+	}
+
 	ret = formatting(&q);
 	if(ret != 0){
 		// Raise error
