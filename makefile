@@ -12,20 +12,24 @@ FORMAT = src/formatting/formatting.o
 QSOLV = src/qsolv/qsolv.o
 QS = src/qs/qs.o
 VALID = src/validation/validation.o
+TESTDIR = tests
+TESTFULL = make
 RM = rm
 
 #first command runs if make called alone
 
-deploy: all
-	gcc -g -o $(INS) $(QS) $(QSOLV) $(VALID) $(FORMAT) $(INPUT) $(OUTPUT)
 
 all:
 	for dir in $(SUBDIRS); do \
-		$(MAKE) -C $$dir; \
+		$(MAKE) all -C $$dir; \
 	done
 
+deploy: all
+	gcc -std=c99 -g -o $(INS) $(QS) $(QSOLV) $(VALID) $(FORMAT) $(INPUT) $(OUTPUT) -lm
+
+
 run: deploy
-	.$(INS)
+	$(INSDIR)/./qsolver
 
 clean:
 	rm -rf $(INS)
@@ -36,4 +40,9 @@ clean:
 test:
 	for dir in $(SUBDIRS); do \
 		$(TEST) -C $$dir; \
+	done
+
+testfull: deploy
+	for dir in $(TESTDIR); do \
+		$(TESTFULL) -C $$dir; \
 	done

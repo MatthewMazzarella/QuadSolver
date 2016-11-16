@@ -7,6 +7,30 @@
 #include <unistd.h>
 
 /*
+* Struct that is passed between functions after input
+*/
+typedef struct
+qsStructTag{
+	double a;
+	double b;
+	double c;
+	double root1;
+	double root2;
+	int rootCount;
+} qsStruct;
+
+int outputErrorVal(int val);
+int outputAnswer(char * out);
+int erlog(char * msg);
+
+/**
+* Qsolve functions 
+**/
+int qsolv(qsStruct *results);
+double getDeterminant(qsStruct *inputs);
+double solve1Root(double a, double b);
+double* solve2Roots(double a, double b, double det);
+/*
 * Struct that holds the inputs
 **/
 typedef struct digits {
@@ -15,19 +39,6 @@ typedef struct digits {
 	double c;
 	int errorCode;
 } qInputs;
-
-/*
-* Struct that is passed between functions after input
-*/
-typedef struct
-qsStructTag{
-	float a;
-	float b;
-	float c;
-	double root1;
-	double root2;
-	int rootCount;
-} qsStruct;
 
 /*
  takeInputs function is called in main. It gains input from 
@@ -62,3 +73,6 @@ int validateInput(char* numAsString);
 * It returns a 0 if everything works properly, a -1 otherwise.
 */
 int formatAnswer(qsStruct * ans);
+
+int 
+main(int argc, char * argv[]);
