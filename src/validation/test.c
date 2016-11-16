@@ -23,6 +23,7 @@ int main(int argc, char * argv[]){
 	printf("Testing %s\n",test4);
 	int ret4 = validateDigits(test4);
 	assert_eq("dig",ret4,0);
+	
 	char * test3 = "FaFererER";
 	printf("Testing %s\n",test3);
 	int ret3 = validateDigits(test3);

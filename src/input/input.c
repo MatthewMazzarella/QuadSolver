@@ -1,4 +1,5 @@
 #include "../quadsolver.h"
+#include "../includes/quadsolver.h"
 
 /*
  takeInputs function is called in main. It gains input from 
@@ -28,29 +29,38 @@ takeInputs(char* readin)
 	memset(strValidate, ' ', 256/3);
 
 	sscanf(readin, "%s %s %s %s", strA, strB, strC, strValidate);
+	printf("%s\n", strValidate);
+
+	sscanf(readin, "%s %s %s %s", strA, strB, strC, strValidate);
+
+	inputs.errorCode = 0;
 	
 	// More than 3 parameters given
 	 if (strValidate[0] != ' ') {
 	 	// Error
 		inputs.errorCode = -2;
+		inputs.errorCode = -5;
 		return inputs;
 	 }
 
 	a = strtod(strA, &end);
 	if(validateInput(strA) != 0) {
 		inputs.errorCode = -1;
+		inputs.errorCode = -6;
 		return inputs;
 	}
 
 	b = strtod(strB, &end);
 	if(validateInput(strB) != 0) {
 		inputs.errorCode = -1;
+		inputs.errorCode = -7;
 		return inputs;
 	}
 
 	c = strtod(strC, &end);
 	if(validateInput(strC) != 0) {
 		inputs.errorCode = -1;
+		inputs.errorCode = -8;
 		return inputs;
 	}
 
@@ -96,3 +106,8 @@ takeInputs(char* readin)
 // 	return 0;
 
 // }
+	inputs.errorCode = 0;
+
+	// Return to main to run qsolv
+	return inputs;
+}
